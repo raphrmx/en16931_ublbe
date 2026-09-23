@@ -1,0 +1,31 @@
+name: en16931_ublbe
+description: >-
+  The UBL.BE profile of the European electronic invoice: the identifier it is
+  claimed under, the rules Belgium adds to EN 16931, and the Belgian terms UBL
+  carries beyond it.
+version: 0.1.0
+homepage: https://www.comapps.be
+repository: https://github.com/raphrmx/en16931_ublbe
+issue_tracker: https://github.com/raphrmx/en16931_ublbe/issues
+topics:
+  - einvoicing
+  - en16931
+  - ubl
+  - invoice
+  - vat
+
+environment:
+  sdk: ^3.11.0
+
+dependencies:
+  decimal: ^3.2.6
+  en16931: ^0.1.2
+  en16931_peppol: ^0.1.2
+  en16931_ubl: ^0.1.4
+  xml: ^7.0.0
+
+dev_dependencies:
+  archive: ^4.0.0
+  crypto: ^3.0.0
+  lint: ^2.4.0
+  test: ^1.25.7

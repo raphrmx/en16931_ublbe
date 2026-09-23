@@ -1,0 +1,22 @@
+# ---- DART ----------------------------------------------------------------
+.dart_tool/
+.packages
+.pub-cache/
+build/
+
+# Omit committing pubspec.lock for library packages; see
+# https://dart.dev/guides/libraries/private-files#pubspeclock.
+pubspec.lock
+*.lock
+
+.idea/
+.vscode/
+
+# The UBL.BE rule artefacts are fetched, never redistributed.
+# `dart run tool/generate_catalogue.dart --fetch` pulls them in.
+artefacts/
+
+# The UBL.BE test cases are fetched, never redistributed.
+# `dart run tool/fetch_examples.dart` pulls them in.
+examples_from_ublbe/
+pubspec_overrides.yaml

@@ -13,10 +13,10 @@ List<String> _children(XmlElement element) =>
     element.childElements.map((child) => child.localName).toList();
 
 Iterable<XmlElement> _lines(XmlElement root) => root.childElements.where(
-  (element) =>
-      element.localName == 'InvoiceLine' ||
-      element.localName == 'CreditNoteLine',
-);
+      (element) =>
+          element.localName == 'InvoiceLine' ||
+          element.localName == 'CreditNoteLine',
+    );
 
 void main() {
   group('the Belgian category', () {

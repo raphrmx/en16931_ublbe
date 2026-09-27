@@ -20,43 +20,43 @@ Invoice validInvoice({
   List<InvoiceLine>? lines,
   Map<VatCategory, String> exemptionReasons = const {},
   List<InvoiceNote> notes = const [],
-}) => Invoice.fromLines(
-  number: '2026-0042',
-  issueDate: DateTime(2026, 9, 13),
-  dueDate: dueDate,
-  specificationIdentifier: specificationIdentifier,
-  businessProcess: businessProcess,
-  typeCode: typeCode,
-  buyerReference: 'PO-77',
-  seller: validSeller,
-  buyer: buyer ?? validBuyer,
-  paymentTerms: paymentTerms,
-  paymentInstructions: paymentInstructions,
-  exemptionReasons: exemptionReasons,
-  notes: notes,
-  supportingDocuments:
-      supportingDocuments ?? [ublBeSoftware('Test 1.0'), rendering()],
-  lines:
-      lines ??
-      [
-        InvoiceLine.of(
-          id: '1',
-          item: const Item(name: 'Consultancy'),
-          quantity: 8,
-          unitPrice: 100,
-          vatRate: 21,
-          unit: UnitCode.hour,
-        ),
-        InvoiceLine.of(
-          id: '2',
-          item: const Item(name: 'Books'),
-          quantity: 3,
-          unitPrice: 33.33,
-          vatRate: 6,
-          unit: UnitCode.piece,
-        ),
-      ],
-);
+}) =>
+    Invoice.fromLines(
+      number: '2026-0042',
+      issueDate: DateTime(2026, 9, 13),
+      dueDate: dueDate,
+      specificationIdentifier: specificationIdentifier,
+      businessProcess: businessProcess,
+      typeCode: typeCode,
+      buyerReference: 'PO-77',
+      seller: validSeller,
+      buyer: buyer ?? validBuyer,
+      paymentTerms: paymentTerms,
+      paymentInstructions: paymentInstructions,
+      exemptionReasons: exemptionReasons,
+      notes: notes,
+      supportingDocuments:
+          supportingDocuments ?? [ublBeSoftware('Test 1.0'), rendering()],
+      lines: lines ??
+          [
+            InvoiceLine.of(
+              id: '1',
+              item: const Item(name: 'Consultancy'),
+              quantity: 8,
+              unitPrice: 100,
+              vatRate: 21,
+              unit: UnitCode.hour,
+            ),
+            InvoiceLine.of(
+              id: '2',
+              item: const Item(name: 'Books'),
+              quantity: 3,
+              unitPrice: 33.33,
+              vatRate: 6,
+              unit: UnitCode.piece,
+            ),
+          ],
+    );
 
 /// The rendering of an invoice, as UBL.BE wants it described.
 SupportingDocument rendering([String description = ublBeInvoiceRendering]) =>
@@ -104,59 +104,60 @@ Invoice cashBook({
   String? paymentTerms,
   List<SupportingDocument>? supportingDocuments,
   num vatAt21 = 10.51,
-}) => Invoice(
-  number: 'LC-2000000123-20260922',
-  issueDate: CalendarDate(2026, 9, 22),
-  currency: 'EUR',
-  typeCode: InvoiceTypeCode.commercialInvoice,
-  specificationIdentifier: ublBeSpecification,
-  businessProcess: ublBeBusinessProcess,
-  buyerReference: '2000000123',
-  paymentTerms: paymentTerms,
-  seller: validSeller,
-  buyer: buyer,
-  vatBreakdown: [
-    VatBreakdown(
-      category: VatCategory.standardRate,
-      taxableAmount: exact(100),
-      taxAmount: exact(6),
-      rate: exact(6),
-    ),
-    VatBreakdown(
-      category: VatCategory.standardRate,
-      taxableAmount: exact(50),
-      taxAmount: exact(vatAt21),
-      rate: exact(21),
-    ),
-  ],
-  totals: InvoiceTotals(
-    sumOfLineNetAmounts: exact(150),
-    totalWithoutVat: exact(150),
-    totalWithVat: exact(156) + exact(vatAt21),
-    amountDueForPayment: exact(156) + exact(vatAt21),
-    totalVat: exact(6) + exact(vatAt21),
-  ),
-  lines: [
-    InvoiceLine.of(
-      id: '1',
-      item: const Item(name: 'Sales at 6%'),
-      quantity: 1,
-      unitPrice: 100,
-      unit: UnitCode.piece,
-      vatRate: 6,
-    ),
-    InvoiceLine.of(
-      id: '2',
-      item: const Item(name: 'Sales at 21%'),
-      quantity: 1,
-      unitPrice: 50,
-      unit: UnitCode.piece,
-      vatRate: 21,
-    ),
-  ],
-  supportingDocuments:
-      supportingDocuments ?? [ublBeSoftware('Test 1.0'), rendering()],
-);
+}) =>
+    Invoice(
+      number: 'LC-2000000123-20260922',
+      issueDate: CalendarDate(2026, 9, 22),
+      currency: 'EUR',
+      typeCode: InvoiceTypeCode.commercialInvoice,
+      specificationIdentifier: ublBeSpecification,
+      businessProcess: ublBeBusinessProcess,
+      buyerReference: '2000000123',
+      paymentTerms: paymentTerms,
+      seller: validSeller,
+      buyer: buyer,
+      vatBreakdown: [
+        VatBreakdown(
+          category: VatCategory.standardRate,
+          taxableAmount: exact(100),
+          taxAmount: exact(6),
+          rate: exact(6),
+        ),
+        VatBreakdown(
+          category: VatCategory.standardRate,
+          taxableAmount: exact(50),
+          taxAmount: exact(vatAt21),
+          rate: exact(21),
+        ),
+      ],
+      totals: InvoiceTotals(
+        sumOfLineNetAmounts: exact(150),
+        totalWithoutVat: exact(150),
+        totalWithVat: exact(156) + exact(vatAt21),
+        amountDueForPayment: exact(156) + exact(vatAt21),
+        totalVat: exact(6) + exact(vatAt21),
+      ),
+      lines: [
+        InvoiceLine.of(
+          id: '1',
+          item: const Item(name: 'Sales at 6%'),
+          quantity: 1,
+          unitPrice: 100,
+          unit: UnitCode.piece,
+          vatRate: 6,
+        ),
+        InvoiceLine.of(
+          id: '2',
+          item: const Item(name: 'Sales at 21%'),
+          quantity: 1,
+          unitPrice: 50,
+          unit: UnitCode.piece,
+          vatRate: 21,
+        ),
+      ],
+      supportingDocuments:
+          supportingDocuments ?? [ublBeSoftware('Test 1.0'), rendering()],
+    );
 
 /// The identifiers of what [invoice] breaks under UBL.BE.
 Set<String> broken(Invoice invoice) =>

@@ -112,18 +112,18 @@ void main() {
 
   group('the exemption reason', () {
     Invoice exempt(String code, String reason) => validInvoice(
-      lines: [
-        InvoiceLine.of(
-          id: '1',
-          item: const Item(name: 'Training'),
-          quantity: 1,
-          unitPrice: 500,
-          vatCategory: VatCategory.exempt,
-          vatRate: 0,
-        ),
-      ],
-      exemptionReasons: {VatCategory.exempt: reason},
-    ).withExemptionCode(code);
+          lines: [
+            InvoiceLine.of(
+              id: '1',
+              item: const Item(name: 'Training'),
+              quantity: 1,
+              unitPrice: 500,
+              vatCategory: VatCategory.exempt,
+              vatRate: 0,
+            ),
+          ],
+          exemptionReasons: {VatCategory.exempt: reason},
+        ).withExemptionCode(code);
 
     test('is a Belgian code, and the European list is set aside', () {
       final invoice = exempt('BETE-EX', 'Exempt');
@@ -240,52 +240,52 @@ void main() {
 extension on Invoice {
   /// This invoice with [code] as the exemption reason code of every entry.
   Invoice withExemptionCode(String code) => Invoice(
-    number: number,
-    issueDate: issueDate,
-    typeCode: typeCode,
-    currency: currency,
-    specificationIdentifier: specificationIdentifier,
-    businessProcess: businessProcess,
-    buyerReference: buyerReference,
-    paymentTerms: paymentTerms,
-    seller: seller,
-    buyer: buyer,
-    lines: lines,
-    supportingDocuments: supportingDocuments,
-    totals: totals,
-    vatBreakdown: [
-      for (final entry in vatBreakdown)
-        VatBreakdown(
-          category: entry.category,
-          taxableAmount: entry.taxableAmount,
-          taxAmount: entry.taxAmount,
-          rate: entry.rate,
-          exemptionReason: entry.exemptionReason,
-          exemptionReasonCode: code,
-        ),
-    ],
-  );
+        number: number,
+        issueDate: issueDate,
+        typeCode: typeCode,
+        currency: currency,
+        specificationIdentifier: specificationIdentifier,
+        businessProcess: businessProcess,
+        buyerReference: buyerReference,
+        paymentTerms: paymentTerms,
+        seller: seller,
+        buyer: buyer,
+        lines: lines,
+        supportingDocuments: supportingDocuments,
+        totals: totals,
+        vatBreakdown: [
+          for (final entry in vatBreakdown)
+            VatBreakdown(
+              category: entry.category,
+              taxableAmount: entry.taxableAmount,
+              taxAmount: entry.taxAmount,
+              rate: entry.rate,
+              exemptionReason: entry.exemptionReason,
+              exemptionReasonCode: code,
+            ),
+        ],
+      );
 
   /// This invoice with a seller that gives no VAT identifier.
   Invoice withoutSellerVat() => Invoice(
-    number: number,
-    issueDate: issueDate,
-    typeCode: typeCode,
-    currency: currency,
-    specificationIdentifier: specificationIdentifier,
-    businessProcess: businessProcess,
-    buyerReference: buyerReference,
-    paymentTerms: paymentTerms,
-    seller: Seller(
-      name: seller.name,
-      address: seller.address,
-      legalRegistrationIdentifier: seller.legalRegistrationIdentifier,
-      electronicAddress: seller.electronicAddress,
-    ),
-    buyer: buyer,
-    lines: lines,
-    supportingDocuments: supportingDocuments,
-    totals: totals,
-    vatBreakdown: vatBreakdown,
-  );
+        number: number,
+        issueDate: issueDate,
+        typeCode: typeCode,
+        currency: currency,
+        specificationIdentifier: specificationIdentifier,
+        businessProcess: businessProcess,
+        buyerReference: buyerReference,
+        paymentTerms: paymentTerms,
+        seller: Seller(
+          name: seller.name,
+          address: seller.address,
+          legalRegistrationIdentifier: seller.legalRegistrationIdentifier,
+          electronicAddress: seller.electronicAddress,
+        ),
+        buyer: buyer,
+        lines: lines,
+        supportingDocuments: supportingDocuments,
+        totals: totals,
+        vatBreakdown: vatBreakdown,
+      );
 }

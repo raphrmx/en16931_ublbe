@@ -81,12 +81,12 @@ const Map<String, String> _belgianLists = {
 const Map<String, String> _belgianDoc = {
   'ublBeTaxCategories':
       'The Belgian VAT categories, one of which names every VAT breakdown '
-      'and every invoiced item.',
+          'and every invoiced item.',
   'ublBeExemptionReasonCodes':
       'The codes a VAT exemption reason (BT-121) is given under in Belgium.',
   'ublBeExemptionReasons':
       'The exact wordings a VAT exemption reason (BT-120) may take in '
-      'Belgium.',
+          'Belgium.',
   'ublBeLegalMentionCodes':
       'The codes of the legal mentions a Belgian invoice may have to carry.',
   'ublBeLegalMentions': 'The exact wordings of those legal mentions.',
@@ -315,10 +315,10 @@ Map<String, _Assertion> _read(XmlDocument document) {
 
 /// The identifiers the artefact holds inside comments.
 Set<String> _commented(XmlDocument document) => {
-  for (final comment in document.descendants.whereType<XmlComment>())
-    for (final match in RegExp('id="([^"]+)"').allMatches(comment.value))
-      match.group(1)!,
-};
+      for (final comment in document.descendants.whereType<XmlComment>())
+        for (final match in RegExp('id="([^"]+)"').allMatches(comment.value))
+          match.group(1)!,
+    };
 
 /// What a receiver does with an invoice that breaks the rule.
 ///

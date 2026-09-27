@@ -1,3 +1,22 @@
+## 0.1.2
+
+- The package asks for Dart 3.3 instead of 3.11, so a project that has not
+  moved yet can take it.
+- `xml` is taken over `>=6.5.0 <8.0.0` rather than `^7.0.0`, which required
+  Dart 3.11 of its own accord. The namespaces are named through `namespace`,
+  the only spelling `xml` 6 has and one `xml` 7 still accepts, so a project
+  already on `xml` 7 can still take this package.
+- Two null-aware elements are spelled as an `if`-`case`, the form that reads
+  the same and does not ask for 3.8.
+
+## 0.1.1
+
+- `homepage` points at the package's card on comapps.web.app, which lists
+  every package published under COMAPPS.
+- The README badge row carries a Live demo badge, the maintainer again, and a
+  licence badge in a colour of its own rather than the grey shields puts in
+  every label. Nothing about the library changed.
+
 ## 0.1.0
 
 First release.

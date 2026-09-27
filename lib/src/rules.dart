@@ -5,8 +5,8 @@ import 'package:en16931_ublbe/src/catalogue.g.dart';
 import 'package:en16931_ublbe/src/profile.dart';
 
 /// Checks one UBL.BE rule against an invoice.
-typedef UblBeCheck =
-    Iterable<RuleViolation> Function(Invoice invoice, RuleDescriptor rule);
+typedef UblBeCheck = Iterable<RuleViolation> Function(
+    Invoice invoice, RuleDescriptor rule);
 
 /// The Belgian rules this package evaluates against the model.
 final Map<String, UblBeCheck> ublBeRules = {
@@ -31,10 +31,10 @@ final Map<String, UblBeCheck> ublBeRules = {
 /// run at the severity UBL.BE gives them: the business process and one code
 /// list are only a warning under UBL.BE.
 Map<String, PeppolCheck> get ublBePeppolRules => {
-  for (final rule in ublBeCatalogue)
-    if (peppolRules[rule.id] case final check?)
-      if (!ublBeRules.containsKey(rule.id)) rule.id: check,
-};
+      for (final rule in ublBeCatalogue)
+        if (peppolRules[rule.id] case final check?)
+          if (!ublBeRules.containsKey(rule.id)) rule.id: check,
+    };
 
 /// The rules of the standard UBL.BE still holds under the name the standard
 /// has since dropped, mapped to the name the standard uses now.
@@ -60,15 +60,16 @@ const Map<String, String> ublBeRenamedRules = {
 /// payment. An invoice built here carries neither, so neither can be wrong.
 /// A UBL.BE document read from elsewhere loses them on the way in.
 Map<String, String> get ublBeMetByConstruction => {
-  for (final rule in ublBeCatalogue) rule.id: ?peppolMetByConstruction[rule.id],
-  'BR-66': 'PaymentInstructions holds one card.',
-  'BR-67': 'PaymentInstructions holds one direct debit.',
-  'ubl-BE-05': 'The model has no delivery terms to carry a legal mention.',
-  'ubl-BE-06': 'The model has no delivery terms to carry a legal mention.',
-  'ubl-BE-07': 'The model has no discount for early payment.',
-  'ubl-BE-08': 'The model has no discount for early payment.',
-  'ubl-BE-09': 'The model has no discount for early payment.',
-};
+      for (final rule in ublBeCatalogue)
+        if (peppolMetByConstruction[rule.id] case final met?) rule.id: met,
+      'BR-66': 'PaymentInstructions holds one card.',
+      'BR-67': 'PaymentInstructions holds one direct debit.',
+      'ubl-BE-05': 'The model has no delivery terms to carry a legal mention.',
+      'ubl-BE-06': 'The model has no delivery terms to carry a legal mention.',
+      'ubl-BE-07': 'The model has no discount for early payment.',
+      'ubl-BE-08': 'The model has no discount for early payment.',
+      'ubl-BE-09': 'The model has no discount for early payment.',
+    };
 
 /// The rules that are about the document rather than the invoice.
 ///
@@ -76,14 +77,15 @@ Map<String, String> get ublBeMetByConstruction => {
 /// the Belgian VAT category on every breakdown entry and every item, and the
 /// VAT of every line. A document written by `writeUbl` alone breaks all four.
 Map<String, String> get ublBeForTheSyntax => {
-  for (final rule in ublBeCatalogue) rule.id: ?peppolForTheSyntax[rule.id],
-  'ubl-BE-10': 'writeUblBe names the Belgian category of every breakdown.',
-  'ubl-BE-13':
-      'writeUblBe writes the VAT of every line, and the artefact accepts any '
-      'amount there.',
-  'ubl-BE-14': 'writeUblBe writes the VAT of every line.',
-  'ubl-BE-15': 'writeUblBe names the Belgian category of every item.',
-};
+      for (final rule in ublBeCatalogue)
+        if (peppolForTheSyntax[rule.id] case final syntax?) rule.id: syntax,
+      'ubl-BE-10': 'writeUblBe names the Belgian category of every breakdown.',
+      'ubl-BE-13':
+          'writeUblBe writes the VAT of every line, and the artefact accepts any '
+              'amount there.',
+      'ubl-BE-14': 'writeUblBe writes the VAT of every line.',
+      'ubl-BE-15': 'writeUblBe names the Belgian category of every item.',
+    };
 
 // --- The references UBL.BE asks for ----------------------------------------
 
@@ -110,10 +112,10 @@ Iterable<RuleViolation> _be02(Invoice invoice, RuleDescriptor rule) sync* {
     rule,
     renderings.isEmpty
         ? 'No supporting document (BG-24) is described as the rendering of '
-              'the invoice. UBL.BE wants one described '
-              '"${ublBeRenderingFor(invoice.typeCode)}".'
+            'the invoice. UBL.BE wants one described '
+            '"${ublBeRenderingFor(invoice.typeCode)}".'
         : '${renderings.length} supporting documents (BG-24) are described '
-              'as the rendering of the invoice, where UBL.BE wants one.',
+            'as the rendering of the invoice, where UBL.BE wants one.',
   );
 }
 
@@ -126,10 +128,10 @@ Iterable<RuleViolation> _be03(Invoice invoice, RuleDescriptor rule) sync* {
     rule,
     software.isEmpty
         ? 'No supporting document (BG-24) names the software that wrote the '
-              'invoice. UBL.BE wants one referenced "$ublBeSoftwareReference" '
-              '(BT-122); ublBeSoftware writes it.'
+            'invoice. UBL.BE wants one referenced "$ublBeSoftwareReference" '
+            '(BT-122); ublBeSoftware writes it.'
         : '${software.length} supporting documents (BG-24) are referenced '
-              '"$ublBeSoftwareReference", where UBL.BE wants one.',
+            '"$ublBeSoftwareReference", where UBL.BE wants one.',
   );
 }
 
@@ -234,9 +236,9 @@ Iterable<RuleViolation> _r007(Invoice invoice, RuleDescriptor rule) sync* {
     rule,
     process == null || process.isEmpty
         ? 'The business process (BT-23) is missing. UBL.BE wants a Peppol '
-              'billing process, which ublBeBusinessProcess names.'
+            'billing process, which ublBeBusinessProcess names.'
         : 'The business process (BT-23) is "$process", where UBL.BE expects '
-              'urn:fdc:peppol.eu:2017:poacc:billing:NN:1.0.',
+            'urn:fdc:peppol.eu:2017:poacc:billing:NN:1.0.',
   );
 }
 

@@ -24,8 +24,8 @@ const String _directory = 'examples_from_ublbe';
 const Map<String, String> _beyondTheModel = {
   'UBLBE_BE0000000196_V01-15000032.xml':
       'Taxes its line on 392 of 400 after a discount for early payment, in a '
-      'line VAT subtotal the model cannot carry, so BR-AE-08 cannot '
-      'reconcile.',
+          'line VAT subtotal the model cannot carry, so BR-AE-08 cannot '
+          'reconcile.',
 };
 
 void main() {

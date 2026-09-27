@@ -75,34 +75,34 @@ Iterable<RuleViolation> checkUblBeList(
 List<_Code> _one(String? value) => value == null ? const [] : [(value, null)];
 
 List<_Code> _partySchemes(Invoice invoice) => [
-  for (final (index, identifier) in invoice.seller.identifiers.indexed)
-    if (identifier.scheme != null)
-      (identifier.scheme!, 'seller identifier $index'),
-  if (invoice.buyer.identifier?.scheme case final scheme?)
-    (scheme, 'buyer identifier'),
-  if (invoice.payee?.identifier?.scheme case final scheme?)
-    (scheme, 'payee identifier'),
-];
+      for (final (index, identifier) in invoice.seller.identifiers.indexed)
+        if (identifier.scheme != null)
+          (identifier.scheme!, 'seller identifier $index'),
+      if (invoice.buyer.identifier?.scheme case final scheme?)
+        (scheme, 'buyer identifier'),
+      if (invoice.payee?.identifier?.scheme case final scheme?)
+        (scheme, 'payee identifier'),
+    ];
 
 List<_Code> _registrationSchemes(Invoice invoice) => [
-  if (invoice.seller.legalRegistrationIdentifier?.scheme case final scheme?)
-    (scheme, 'seller registration'),
-  if (invoice.buyer.legalRegistrationIdentifier?.scheme case final scheme?)
-    (scheme, 'buyer registration'),
-  if (invoice.payee?.legalRegistrationIdentifier?.scheme case final scheme?)
-    (scheme, 'payee registration'),
-];
+      if (invoice.seller.legalRegistrationIdentifier?.scheme case final scheme?)
+        (scheme, 'seller registration'),
+      if (invoice.buyer.legalRegistrationIdentifier?.scheme case final scheme?)
+        (scheme, 'buyer registration'),
+      if (invoice.payee?.legalRegistrationIdentifier?.scheme case final scheme?)
+        (scheme, 'payee registration'),
+    ];
 
 List<_Code> _classifications(Invoice invoice) => [
-  for (final line in invoice.lines)
-    for (final identifier in line.item.classificationIdentifiers)
-      if (identifier.scheme != null) (identifier.scheme!, _line(line)),
-];
+      for (final line in invoice.lines)
+        for (final identifier in line.item.classificationIdentifiers)
+          if (identifier.scheme != null) (identifier.scheme!, _line(line)),
+    ];
 
 List<_Code> _origins(Invoice invoice) => [
-  for (final line in invoice.lines)
-    if (line.item.originCountry case final country?) (country, _line(line)),
-];
+      for (final line in invoice.lines)
+        if (line.item.originCountry case final country?) (country, _line(line)),
+    ];
 
 List<_Code> _reasons(Invoice invoice, AllowanceOrCharge kind) {
   final noun = kind == AllowanceOrCharge.allowance ? 'allowance' : 'charge';
@@ -118,17 +118,17 @@ List<_Code> _reasons(Invoice invoice, AllowanceOrCharge kind) {
 }
 
 List<_Code> _standardSchemes(Invoice invoice) => [
-  for (final line in invoice.lines)
-    if (line.item.standardIdentifier?.scheme case final scheme?)
-      (scheme, _line(line)),
-];
+      for (final line in invoice.lines)
+        if (line.item.standardIdentifier?.scheme case final scheme?)
+          (scheme, _line(line)),
+    ];
 
 List<_Code> _electronicAddressSchemes(Invoice invoice) => [
-  if (invoice.seller.electronicAddress?.scheme case final scheme?)
-    (scheme, 'seller'),
-  if (invoice.buyer.electronicAddress?.scheme case final scheme?)
-    (scheme, 'buyer'),
-];
+      if (invoice.seller.electronicAddress?.scheme case final scheme?)
+        (scheme, 'seller'),
+      if (invoice.buyer.electronicAddress?.scheme case final scheme?)
+        (scheme, 'buyer'),
+    ];
 
 /// The country prefix of every VAT identifier the invoice carries.
 ///
@@ -136,13 +136,13 @@ List<_Code> _electronicAddressSchemes(Invoice invoice) => [
 /// its list holds, so a prefix it does not know is reported under the rule
 /// the standard uses for the shape.
 List<_Code> _vatPrefixes(Invoice invoice) => [
-  for (final (vat, path) in [
-    (invoice.seller.vatIdentifier, 'seller'),
-    (invoice.buyer.vatIdentifier, 'buyer'),
-    (invoice.taxRepresentative?.vatIdentifier, 'tax representative'),
-  ])
-    if (vat != null && vat.trim().length >= 2)
-      (vat.trim().substring(0, 2), path),
-];
+      for (final (vat, path) in [
+        (invoice.seller.vatIdentifier, 'seller'),
+        (invoice.buyer.vatIdentifier, 'buyer'),
+        (invoice.taxRepresentative?.vatIdentifier, 'tax representative'),
+      ])
+        if (vat != null && vat.trim().length >= 2)
+          (vat.trim().substring(0, 2), path),
+    ];
 
 String _line(InvoiceLine line) => 'line ${line.id}';

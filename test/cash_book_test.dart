@@ -92,7 +92,8 @@ void main() {
       );
       final written = writeUblBe(invoice);
       expect(written, contains(base64Encode(bytes)));
-      final attachment = readUbl(written).supportingDocuments
+      final attachment = readUbl(written)
+          .supportingDocuments
           .singleWhere((document) => document.attachment != null)
           .attachment!;
       expect(attachment.bytes, bytes);

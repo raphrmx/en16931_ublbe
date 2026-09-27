@@ -1,1 +1,8 @@
 include: package:lint/strict.yaml
+
+linter:
+  rules:
+    # The xml constraint spans a deprecation: `namespace` is the only spelling
+    # xml 6 has, and xml 7 deprecates it. The ignore in writer.dart is
+    # required against xml 7 and pointless against xml 6.
+    unnecessary_ignore: false

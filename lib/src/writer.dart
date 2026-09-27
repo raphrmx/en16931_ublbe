@@ -1,3 +1,8 @@
+// `namespace` is deprecated in xml 7 and is the only spelling xml 6 has.
+// Writing it the 7 way would put the floor of this package back on
+// Dart 3.11, which is what xml 7 asks for.
+// ignore_for_file: deprecated_member_use
+
 import 'package:decimal/decimal.dart';
 import 'package:en16931/en16931.dart';
 import 'package:en16931_ubl/en16931_ubl.dart';
@@ -25,8 +30,7 @@ final class UblBeWriteException implements Exception {
   final List<String> problems;
 
   @override
-  String toString() =>
-      'UblBeWriteException: ${problems.length} problem(s)\n'
+  String toString() => 'UblBeWriteException: ${problems.length} problem(s)\n'
       '${problems.map((problem) => ' - $problem').join('\n')}';
 }
 
@@ -94,10 +98,10 @@ String writeUblBe(
     problems.add(
       candidates.isEmpty
           ? 'Line ${line.id} is ${_describe(line.vatCategory, line.vatRate)}, '
-                'and no VAT breakdown entry names a Belgian category for it.'
+              'and no VAT breakdown entry names a Belgian category for it.'
           : 'Line ${line.id} is ${_describe(line.vatCategory, line.vatRate)}, '
-                'which the breakdown splits under ${candidates.join(' and ')}. '
-                'lineTaxCategoryOf has to say which the line is.',
+              'which the breakdown splits under ${candidates.join(' and ')}. '
+              'lineTaxCategoryOf has to say which the line is.',
     );
   }
 
@@ -108,11 +112,11 @@ String writeUblBe(
   final root = document.rootElement;
 
   final subtotals = root
-      .findElements('TaxTotal', namespaceUri: _cac)
-      .expand((total) => total.findElements('TaxSubtotal', namespaceUri: _cac))
+      .findElements('TaxTotal', namespace: _cac)
+      .expand((total) => total.findElements('TaxSubtotal', namespace: _cac))
       .toList();
   for (final (index, subtotal) in subtotals.indexed) {
-    final category = subtotal.getElement('TaxCategory', namespaceUri: _cac)!;
+    final category = subtotal.getElement('TaxCategory', namespace: _cac)!;
     _nameCategory(category, entryNames[index]!);
   }
 
@@ -124,10 +128,10 @@ String writeUblBe(
       )
       .toList();
   for (final (index, element) in lines.indexed) {
-    final item = element.getElement('Item', namespaceUri: _cac)!;
+    final item = element.getElement('Item', namespace: _cac)!;
     final classified = item.getElement(
       'ClassifiedTaxCategory',
-      namespaceUri: _cac,
+      namespace: _cac,
     )!;
     _nameCategory(classified, lineNames[index]!);
     element.children.insert(
@@ -190,13 +194,11 @@ List<Decimal> _lineVat(
   final vat = List<Decimal>.filled(invoice.lines.length, Decimal.zero);
   final groups = <(VatCategory, Decimal?, String), List<int>>{};
   for (final (index, line) in invoice.lines.indexed) {
-    groups
-        .putIfAbsent((
-          line.vatCategory,
-          line.vatRate,
-          lineNames[index],
-        ), () => [])
-        .add(index);
+    groups.putIfAbsent((
+      line.vatCategory,
+      line.vatRate,
+      lineNames[index],
+    ), () => []).add(index);
   }
   for (final MapEntry(key: (category, rate, name), value: members)
       in groups.entries) {
@@ -239,7 +241,7 @@ Decimal _round(Decimal numerator, Decimal denominator) =>
 
 /// Puts the Belgian category after the European one, where UBL orders it.
 void _nameCategory(XmlElement category, String name) {
-  final id = category.getElement('ID', namespaceUri: _cbc)!;
+  final id = category.getElement('ID', namespace: _cbc)!;
   category.children.insert(
     category.children.indexOf(id) + 1,
     XmlElement(const XmlName.parts('Name', prefix: 'cbc'), [], [XmlText(name)]),

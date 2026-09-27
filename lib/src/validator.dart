@@ -42,29 +42,29 @@ RuleDescriptor ublBeRuleFor(String id) {
 /// aside: the rules the artefact comments out or leaves out, the ones it
 /// holds with another code list, and the ones this package checks again.
 Set<String> get ublBeOverriddenRules => {
-  ...ublBeSuspendedRules,
-  ...ublBeAbsentRules,
-  ...ublBeCodeLists.keys,
-  ...ublBeRules.keys,
-};
+      ...ublBeSuspendedRules,
+      ...ublBeAbsentRules,
+      ...ublBeCodeLists.keys,
+      ...ublBeRules.keys,
+    };
 
 /// The UBL.BE rules this package evaluates.
 ///
 /// The rules of the standard UBL.BE holds its own way are checked too, but
 /// they are the standard's, and [ublBeOverriddenRules] says which.
 Set<String> get implementedUblBeRules => {
-  ...ublBeRules.keys.where(_byIdentifier.containsKey),
-  ...ublBePeppolRules.keys,
-  ...ublBeRenamedRules.keys,
-};
+      ...ublBeRules.keys.where(_byIdentifier.containsKey),
+      ...ublBePeppolRules.keys,
+      ...ublBeRenamedRules.keys,
+    };
 
 /// Every rule UBL.BE adds that this package has an answer for, whichever the
 /// answer is.
 Set<String> get accountedUblBeRules => {
-  ...implementedUblBeRules,
-  ...ublBeMetByConstruction.keys,
-  ...ublBeForTheSyntax.keys,
-};
+      ...implementedUblBeRules,
+      ...ublBeMetByConstruction.keys,
+      ...ublBeForTheSyntax.keys,
+    };
 
 /// What [invoice] breaks, under UBL.BE.
 ///
@@ -111,14 +111,14 @@ List<RuleViolation> validateUblBe(Invoice invoice) {
 
 /// Whether [invoice] breaks no UBL.BE rule a receiver would refuse it for.
 bool isAcceptableUblBe(Invoice invoice) => validateUblBe(
-  invoice,
-).every((violation) => violation.rule.severity != RuleSeverity.fatal);
+      invoice,
+    ).every((violation) => violation.rule.severity != RuleSeverity.fatal);
 
 RuleViolation _as(RuleViolation violation, RuleDescriptor rule) =>
     identical(violation.rule, rule)
-    ? violation
-    : RuleViolation(
-        rule: rule,
-        message: violation.message,
-        path: violation.path,
-      );
+        ? violation
+        : RuleViolation(
+            rule: rule,
+            message: violation.message,
+            path: violation.path,
+          );

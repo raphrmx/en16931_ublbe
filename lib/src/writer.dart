@@ -1,7 +1,9 @@
-// `namespace` is deprecated in xml 7 and is the only spelling xml 6 has.
-// Writing it the 7 way would put the floor of this package back on
-// Dart 3.11, which is what xml 7 asks for.
-// ignore_for_file: deprecated_member_use
+// Two members of xml differ across the range this package takes. `namespace`
+// is deprecated in xml 7 and is the only spelling xml 6 has. `XmlName(local,
+// prefix)` is deprecated in xml 7 and const there, where xml 6 has it as a
+// factory that cannot be const. Writing either the xml 7 way would put the
+// floor of this package back on Dart 3.11, which is what xml 7 asks for.
+// ignore_for_file: deprecated_member_use, prefer_const_constructors
 
 import 'package:decimal/decimal.dart';
 import 'package:en16931/en16931.dart';
@@ -244,16 +246,16 @@ void _nameCategory(XmlElement category, String name) {
   final id = category.getElement('ID', namespace: _cbc)!;
   category.children.insert(
     category.children.indexOf(id) + 1,
-    XmlElement(const XmlName.parts('Name', prefix: 'cbc'), [], [XmlText(name)]),
+    XmlElement(XmlName('Name', 'cbc'), [], [XmlText(name)]),
   );
 }
 
 /// The VAT of one line, which UBL puts just before the item.
 XmlElement _taxTotal(Decimal amount, String currency) =>
-    XmlElement(const XmlName.parts('TaxTotal', prefix: 'cac'), [], [
+    XmlElement(XmlName('TaxTotal', 'cac'), [], [
       XmlElement(
-        const XmlName.parts('TaxAmount', prefix: 'cbc'),
-        [XmlAttribute(const XmlName.parts('currencyID'), currency)],
+        XmlName('TaxAmount', 'cbc'),
+        [XmlAttribute(XmlName('currencyID'), currency)],
         [XmlText(amount.toStringAsFixed(2))],
       ),
     ]);

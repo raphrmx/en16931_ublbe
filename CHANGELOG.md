@@ -3,9 +3,10 @@
 - The package asks for Dart 3.3 instead of 3.11, so a project that has not
   moved yet can take it.
 - `xml` is taken over `>=6.5.0 <8.0.0` rather than `^7.0.0`, which required
-  Dart 3.11 of its own accord. The namespaces are named through `namespace`,
-  the only spelling `xml` 6 has and one `xml` 7 still accepts, so a project
-  already on `xml` 7 can still take this package.
+  Dart 3.11 of its own accord. Namespaces are named through `namespace` and
+  element names built through `XmlName(local, prefix)`, the spellings `xml` 6
+  has and `xml` 7 still accepts, so a project already on `xml` 7 can still
+  take this package.
 - Two null-aware elements are spelled as an `if`-`case`, the form that reads
   the same and does not ask for 3.8.
 

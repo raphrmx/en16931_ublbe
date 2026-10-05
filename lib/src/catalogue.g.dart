@@ -47,7 +47,7 @@ const List<RuleDescriptor> ublBeCatalogue = [
       'BT-95',
       'BT-102',
       'BG-23',
-      'BT-118',
+      'BT-118'
     ],
   ),
   RuleDescriptor(
@@ -80,7 +80,7 @@ const List<RuleDescriptor> ublBeCatalogue = [
       'BT-95',
       'BT-102',
       'BG-23',
-      'BT-118',
+      'BT-118'
     ],
   ),
   RuleDescriptor(
@@ -1383,7 +1383,7 @@ const Map<String, Set<String>> ublBeCodeLists = {
     '82',
     '83',
     '84',
-    '935',
+    '935'
   },
   'BR-CL-03': {
     'AED',
@@ -1563,7 +1563,7 @@ const Map<String, Set<String>> ublBeCodeLists = {
     'YER',
     'ZAR',
     'ZMW',
-    'ZWL',
+    'ZWL'
   },
   'BR-CL-04': {
     'AED',
@@ -1743,7 +1743,7 @@ const Map<String, Set<String>> ublBeCodeLists = {
     'YER',
     'ZAR',
     'ZMW',
-    'ZWL',
+    'ZWL'
   },
   'BR-CL-05': {
     'AED',
@@ -1923,7 +1923,7 @@ const Map<String, Set<String>> ublBeCodeLists = {
     'YER',
     'ZAR',
     'ZMW',
-    'ZWL',
+    'ZWL'
   },
   'BR-CL-07': {
     'AAA',
@@ -2742,7 +2742,7 @@ const Map<String, Set<String>> ublBeCodeLists = {
     'XA',
     'XC',
     'XP',
-    'ZZZ',
+    'ZZZ'
   },
   'BR-CL-10': {
     '0002',
@@ -2953,7 +2953,7 @@ const Map<String, Set<String>> ublBeCodeLists = {
     '0211',
     '0212',
     '0213',
-    'SEPA',
+    'SEPA'
   },
   'BR-CL-11': {
     '0002',
@@ -3164,7 +3164,7 @@ const Map<String, Set<String>> ublBeCodeLists = {
     '0211',
     '0212',
     '0213',
-    '9925',
+    '9925'
   },
   'BR-CL-13': {
     'AA',
@@ -3348,7 +3348,7 @@ const Map<String, Set<String>> ublBeCodeLists = {
     'VP',
     'VS',
     'VX',
-    'ZZZ',
+    'ZZZ'
   },
   'BR-CL-15': {
     '1A',
@@ -3600,7 +3600,7 @@ const Map<String, Set<String>> ublBeCodeLists = {
     'YT',
     'ZA',
     'ZM',
-    'ZW',
+    'ZW'
   },
   'BR-CL-16': {
     '1',
@@ -3685,7 +3685,7 @@ const Map<String, Set<String>> ublBeCodeLists = {
     '95',
     '96',
     '97',
-    'ZZZ',
+    'ZZZ'
   },
   'BR-CL-19': {
     '100',
@@ -3705,7 +3705,7 @@ const Map<String, Set<String>> ublBeCodeLists = {
     '70',
     '71',
     '88',
-    '95',
+    '95'
   },
   'BR-CL-20': {
     'AA',
@@ -3884,7 +3884,7 @@ const Map<String, Set<String>> ublBeCodeLists = {
     'WH',
     'XAA',
     'YY',
-    'ZZZ',
+    'ZZZ'
   },
   'BR-CL-21': {
     '0002',
@@ -4094,7 +4094,7 @@ const Map<String, Set<String>> ublBeCodeLists = {
     '0210',
     '0211',
     '0212',
-    '0213',
+    '0213'
   },
   'BR-CL-25': {
     '0002',
@@ -4183,7 +4183,7 @@ const Map<String, Set<String>> ublBeCodeLists = {
     'AQ',
     'AS',
     'AU',
-    'EM',
+    'EM'
   },
   'BR-CL-26': {
     '0002',
@@ -4393,7 +4393,7 @@ const Map<String, Set<String>> ublBeCodeLists = {
     '0210',
     '0211',
     '0212',
-    '0213',
+    '0213'
   },
   'BR-CO-09': {
     'AD',
@@ -4641,7 +4641,7 @@ const Map<String, Set<String>> ublBeCodeLists = {
     'YT',
     'ZA',
     'ZM',
-    'ZW',
+    'ZW'
   },
 };
 
@@ -4773,5 +4773,5 @@ const Set<String> ublBeBillingInvoiceTypes = {
   '780',
   '80',
   '82',
-  '84',
+  '84'
 };

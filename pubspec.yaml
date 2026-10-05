@@ -3,10 +3,12 @@ description: >-
   The UBL.BE profile of the European electronic invoice: the identifier it is
   claimed under, the rules Belgium adds to EN 16931, and the Belgian terms UBL
   carries beyond it.
-version: 0.1.2
-homepage: https://comapps.web.app/#en16931_ublbe
+version: 0.1.3
+homepage: https://packages.comapps.be/#en16931_ublbe
 repository: https://github.com/raphrmx/en16931_ublbe
 issue_tracker: https://github.com/raphrmx/en16931_ublbe/issues
+funding:
+  - https://www.paypal.com/donate/?hosted_button_id=ZN6D382YQAV5N
 topics:
   - einvoicing
   - en16931

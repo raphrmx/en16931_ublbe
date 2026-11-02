@@ -16,6 +16,8 @@ the turnover by the Belgian VAT category, which EN 16931 has no term for, so
 an invoice can satisfy the standard and still not be importable. This checks
 it and writes it.
 
+![Which en16931 packages for which invoice: build and check with en16931, then en16931_peppol and en16931_ubl over Peppol, en16931_ublbe for Belgian accounting, en16931_xrechnung for a German public body, en16931_facturx for a French invoice](https://public.comapps.be/packages/en16931/en16931_situations.svg)
+
 ## Install
 
 ```yaml
@@ -142,6 +144,8 @@ the codes a rule compares against.
 ## More from COMAPPS
 
 The EN 16931 family:
+
+![The en16931 packages: the model, en16931_ubl and en16931_cii for the syntaxes, then the profiles built on them](https://public.comapps.be/packages/en16931/en16931.svg)
 
 | Package | What it does |
 | --- | --- |

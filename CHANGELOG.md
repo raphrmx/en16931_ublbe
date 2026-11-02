@@ -1,3 +1,7 @@
+## 0.1.4
+
+- Update dependencies
+
 ## 0.1.3
 
 - `homepage` and the Live demo badge point at packages.comapps.be, where the

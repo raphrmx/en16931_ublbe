@@ -1,3 +1,12 @@
+## 0.1.5
+
+- The Peppol code list rules, PEPPOL-EN16931-CL001 to CL008, are checked
+  against the lists the UBL.BE artefact holds, `ublBePeppolCodeLists`, rather
+  than against the ones `en16931_peppol` holds. Since 0.2.0 that package
+  follows Peppol 3.0.21, which dropped codes UBL.BE V1.31 still takes: a buyer
+  addressed under scheme 0193 was refused by CL008, as were the ANG, BGN and
+  STD currencies by CL007.
+
 ## 0.1.4
 
 - Update dependencies

@@ -2,6 +2,7 @@ import 'package:en16931/en16931.dart';
 import 'package:en16931_peppol/en16931_peppol.dart';
 import 'package:en16931_ubl/en16931_ubl.dart';
 import 'package:en16931_ublbe/src/catalogue.g.dart';
+import 'package:en16931_ublbe/src/code_lists.dart';
 import 'package:en16931_ublbe/src/profile.dart';
 
 /// Checks one UBL.BE rule against an invoice.
@@ -30,10 +31,18 @@ final Map<String, UblBeCheck> ublBeRules = {
 /// which [ublBeRules] answers for here. The rest are the Peppol package's,
 /// run at the severity UBL.BE gives them: the business process and one code
 /// list are only a warning under UBL.BE.
+///
+/// The code list rules are the exception. The Peppol package holds the lists
+/// of Peppol's current release, which has dropped codes the copy still takes,
+/// such as the electronic address scheme 0193. They are checked against the
+/// lists the copy holds, [ublBePeppolCodeLists].
 Map<String, PeppolCheck> get ublBePeppolRules => {
       for (final rule in ublBeCatalogue)
         if (peppolRules[rule.id] case final check?)
-          if (!ublBeRules.containsKey(rule.id)) rule.id: check,
+          if (!ublBeRules.containsKey(rule.id))
+            rule.id: ublBePeppolCodeLists.containsKey(rule.id)
+                ? checkUblBeList
+                : check,
     };
 
 /// The rules of the standard UBL.BE still holds under the name the standard

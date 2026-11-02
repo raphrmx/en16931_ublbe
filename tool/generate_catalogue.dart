@@ -77,6 +77,21 @@ const Map<String, String> _belgianLists = {
   'BELMText': 'ublBeLegalMentions',
 };
 
+/// The Peppol rules that compare a code against a list the artefact holds in
+/// a Schematron variable, and that variable.
+///
+/// The copy holds the lists Peppol held when it was taken. The Peppol package
+/// follows Peppol's current release, which drops codes the copy still takes,
+/// so these rules are checked against the copy's lists, not the package's.
+const Map<String, String> _peppolListVariables = {
+  'PEPPOL-EN16931-CL001': 'MIMECODE',
+  'PEPPOL-EN16931-CL002': 'UNCL5189',
+  'PEPPOL-EN16931-CL003': 'UNCL7161',
+  'PEPPOL-EN16931-CL006': 'UNCL2005',
+  'PEPPOL-EN16931-CL007': 'ISO4217',
+  'PEPPOL-EN16931-CL008': 'eaid',
+};
+
 /// What each Belgian list is, for the doc comment above it.
 const Map<String, String> _belgianDoc = {
   'ublBeTaxCategories':
@@ -188,6 +203,12 @@ Future<void> main(List<String> arguments) async {
     lists[assertion.id] = codes;
   }
 
+  final peppolLists = {
+    for (final entry in _peppolListVariables.entries)
+      if (assertions.containsKey(entry.key))
+        entry.key: _variable(source, entry.value, r'\s'),
+  };
+
   final belgian = {
     for (final entry in _belgianLists.entries)
       entry.value: _variable(source, entry.key, _separators[entry.key]!),
@@ -205,6 +226,7 @@ Future<void> main(List<String> arguments) async {
       absent: absent,
       severities: severities,
       lists: lists,
+      peppolLists: peppolLists,
       belgian: belgian,
       profileTypes: profileTypes,
     ),
@@ -235,6 +257,7 @@ Future<void> main(List<String> arguments) async {
   stdout.writeln('  absent: ${absent.join(' ')}');
   stdout.writeln('  severity changed: $severities');
   stdout.writeln('  code lists rewritten: ${lists.keys.join(' ')}');
+  stdout.writeln('  Peppol code lists: ${peppolLists.keys.join(' ')}');
   for (final entry in belgian.entries) {
     stdout.writeln('  ${entry.key}: ${entry.value.length} codes');
   }
@@ -417,6 +440,7 @@ String _emit({
   required List<String> absent,
   required Map<String, String> severities,
   required Map<String, Set<String>> lists,
+  required Map<String, Set<String>> peppolLists,
   required Map<String, Set<String>> belgian,
   required Set<String> profileTypes,
 }) {
@@ -521,6 +545,18 @@ String _emit({
     ..writeln('const Map<String, Set<String>> ublBeCodeLists = {');
   for (final id in lists.keys.toList()..sort(_byIdentifier)) {
     final codes = lists[id]!.toList()..sort();
+    buffer.writeln("  '$id': {${codes.map(_quote).join(', ')}},");
+  }
+  buffer
+    ..writeln('};')
+    ..writeln()
+    ..writeln('/// The code lists of the Peppol rules, as the copy holds them.')
+    ..writeln('///')
+    ..writeln('/// The copy took them from the Peppol release of its day, and')
+    ..writeln('/// Peppol has dropped codes since that UBL.BE still takes.')
+    ..writeln('const Map<String, Set<String>> ublBePeppolCodeLists = {');
+  for (final id in peppolLists.keys.toList()..sort(_byIdentifier)) {
+    final codes = peppolLists[id]!.toList()..sort();
     buffer.writeln("  '$id': {${codes.map(_quote).join(', ')}},");
   }
   buffer.writeln('};');

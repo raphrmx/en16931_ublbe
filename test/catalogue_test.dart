@@ -49,6 +49,21 @@ void main() {
       ublBeListReaders.keys.toSet(),
       reason: 'A list UBL.BE rewrites has to be read term for term.',
     );
+    expect(
+      ublBePeppolCodeLists.keys.toSet(),
+      ublBePeppolListReaders.keys.toSet(),
+      reason: 'A Peppol list the copy holds has to be read term for term.',
+    );
+  });
+
+  test('checks the Peppol code lists against the copy', () {
+    // Peppol dropped 0193 from its electronic address schemes in 3.0.21.
+    // The copy still takes it, and so does this package under UBL.BE.
+    expect(peppolElectronicAddressSchemes, isNot(contains('0193')));
+    expect(ublBePeppolCodeLists['PEPPOL-EN16931-CL008'], contains('0193'));
+    for (final id in ublBePeppolCodeLists.keys) {
+      expect(ublBePeppolRules, contains(id));
+    }
   });
 
   test('renames only what both sides hold', () {

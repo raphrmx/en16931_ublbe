@@ -53,13 +53,47 @@ final Map<String, (String, List<_Code> Function(Invoice))> ublBeListReaders = {
   'BR-CO-09': ('VAT identifier country prefix', _vatPrefixes),
 };
 
+/// What each Peppol list rule reads from an invoice, and what the term is
+/// called.
+///
+/// The same terms the Peppol package reads, compared with the list the
+/// UBL.BE copy holds rather than with the one Peppol holds today. A test holds
+/// this table to `ublBePeppolCodeLists`.
+final Map<String, (String, List<_Code> Function(Invoice))>
+    ublBePeppolListReaders = {
+  'PEPPOL-EN16931-CL001': ('attachment MIME code (BT-125-1)', _mimeCodes),
+  'PEPPOL-EN16931-CL002': (
+    'allowance reason code (BT-98, BT-140)',
+    (i) => _reasons(i, AllowanceOrCharge.allowance),
+  ),
+  'PEPPOL-EN16931-CL003': (
+    'charge reason code (BT-105, BT-145)',
+    (i) => _reasons(i, AllowanceOrCharge.charge),
+  ),
+  'PEPPOL-EN16931-CL006': (
+    'VAT point date code (BT-8)',
+    (i) => _one(i.vatPointDateCode),
+  ),
+  'PEPPOL-EN16931-CL007': (
+    'currency (BT-5, BT-6)',
+    (i) => [..._one(i.currency), ..._one(i.vatAccountingCurrency)],
+  ),
+  'PEPPOL-EN16931-CL008': (
+    'electronic address scheme (BT-34-1, BT-49-1)',
+    _electronicAddressSchemes,
+  ),
+};
+
 /// Reports the codes the UBL.BE list for [rule] does not hold.
+///
+/// [rule] is a rule of the standard UBL.BE holds with another list, or a
+/// Peppol rule checked against the list the UBL.BE copy holds.
 Iterable<RuleViolation> checkUblBeList(
   Invoice invoice,
   RuleDescriptor rule,
 ) sync* {
-  final allowed = ublBeCodeLists[rule.id];
-  final reader = ublBeListReaders[rule.id];
+  final allowed = ublBeCodeLists[rule.id] ?? ublBePeppolCodeLists[rule.id];
+  final reader = ublBeListReaders[rule.id] ?? ublBePeppolListReaders[rule.id];
   if (allowed == null || reader == null) return;
   final (term, read) = reader;
   for (final (value, path) in read(invoice)) {
@@ -73,6 +107,12 @@ Iterable<RuleViolation> checkUblBeList(
 }
 
 List<_Code> _one(String? value) => value == null ? const [] : [(value, null)];
+
+List<_Code> _mimeCodes(Invoice invoice) => [
+      for (final (index, document) in invoice.supportingDocuments.indexed)
+        if (document.attachment?.mimeCode case final mime?)
+          (mime, 'supporting document $index'),
+    ];
 
 List<_Code> _partySchemes(Invoice invoice) => [
       for (final (index, identifier) in invoice.seller.identifiers.indexed)
